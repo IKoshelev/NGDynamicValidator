@@ -1,0 +1,72 @@
+﻿<div>
+    <form role="form" name="form">
+        <label>Compnents A and B can't have the same text</label>
+        <!-- Make note that validateTogetherGroups will always validate after all model changes have been propogated -->
+        <div class="well" ng-controller="ValidateTogetherGroupsCtrl">
+            <div class="form-group">
+                <label>Compnent A</label>
+                <input type="text"
+                       class="form-control"
+                       name="validateTogetherExampleA"
+                       ng-model="componentA"
+                       ng-dynamic-validator="{_validateTogetherGroups:['vtg-components'],
+                                            default:componentsNotQeual}">
+                Model state : {{componentA}}
+            </div>
+            <div class="form-group">
+                <label>Compnent B</label>
+                <input type="text"
+                       class="form-control"
+                       name="validateTogetherExampleB"
+                       ng-model="componentB"
+                       ng-dynamic-validator="{_validateTogetherGroups:['vtg-components'],
+                                            default:componentsNotQeual}">
+                Model state : {{componentB}}
+            </div>
+        </div>
+
+        <label>Notice validation times counters</label>
+        <div class="well" ng-controller="ValidateTogetherBehaviourCtrl">
+            <div class="form-group">
+                <label>Max length 7; Validates after first input in group (default)</label>
+                <input type="text"
+                       class="form-control"
+                       name="validateTogetherExampleC"
+                       ng-model="componentC"
+                       ng-dynamic-validator="{_validateTogetherGroups:['vtg-validate-together-behaviour'],
+                                                default:loggingMaxLength(7,'componentC')}">
+                <!-- having no option for_validateTogetherGroupsBehaviour will set default of 'afterFirst',-->
+                Model state : {{componentC}} Validated : <span>{{componentCValidationCounter}}</span> times
+            </div>
+            <div class="form-group">
+                <label>Max length 7; Validates after each input in group</label>
+                <input type="text"
+                       class="form-control"
+                       name="validateTogetherExampleD"
+                       ng-model="componentD"
+                       ng-dynamic-validator="{_validateTogetherGroups:['vtg-validate-together-behaviour'],
+                                                _validateTogetherGroupsBehaviour:'afterEach',
+                                                default:loggingMaxLength(7,'componentD')}">
+                Model state : {{componentD}} Validated : <span>{{componentDValidationCounter}}</span> times
+            </div>
+            <div class="form-group">
+                <label>Max length 7; Triggers group validation, but does not participate</label>
+                <input type="text"
+                       class="form-control"
+                       name="validateTogetherExampleE"
+                       ng-model="componentE"
+                       ng-dynamic-validator="{_validateTogetherGroups:['vtg-validate-together-behaviour'],
+                                                _validateTogetherGroupsBehaviour:'onlyTrigger',
+                                                default:loggingMaxLength(7,'componentE')}">
+                Model state : {{componentE}} Validated : <span>{{componentEValidationCounter}}</span> times
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary"
+                        id="btnVtgTriggerValidation"
+                        ng-click="triggerValidationOfVtgValidateTogetherBehaviourGroup()">
+                    Request validation of 'vtg-validate-together-behaviour' group
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

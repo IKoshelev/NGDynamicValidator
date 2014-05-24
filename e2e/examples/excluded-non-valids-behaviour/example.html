@@ -1,0 +1,38 @@
+﻿<div id="excludedNonValidsBehaviour">
+    <label>Each of the following inputs will validate blur:maxLength(5) </label>
+    <div class="well" role="form">
+        <div class="form-group">
+            <label>Default of _excludedNonValids='validate'; Once invalid, particular validation function will be rechecked on every validation, 
+            even if it otherwise would not participate, untill valid again</label>
+            <input type="text"
+                   class="form-control"
+                   name="inputA"
+                   ng-model="inputA"
+                   ng-dynamic-validator="{blur:maxLength(5)}">
+            Model state : {{inputA}}
+        </div>
+        <div class="form-group">
+            <label>
+                _excludedNonValids:'setValid'; During any validation, validators that do not participate will be set to valid
+            </label>
+            <input type="text"
+                   class="form-control"
+                   name="inputB"
+                   ng-model="inputB"
+                   ng-dynamic-validator="{_excludedNonValids:'setValid',blur:maxLength(5)}">
+            Model state : {{inputB}}
+        </div>
+        <div class="form-group">
+            <label>
+                _excludedNonValids:'doNothing'; During a validation, validators that do not participate are left alone 
+                (in this case, their validity will only be rechecked on next blur event)
+            </label>
+            <input type="text"
+                   class="form-control"
+                   name="inputC"
+                   ng-model="inputC"
+                   ng-dynamic-validator="{_excludedNonValids:'doNothing',blur:maxLength(5)}">
+            Model state : {{inputC}}
+        </div>
+    </div>
+</div>

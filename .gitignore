@@ -1,0 +1,4 @@
+node_modules/
+e2e/bower_components
+.tscache
+unit/reports

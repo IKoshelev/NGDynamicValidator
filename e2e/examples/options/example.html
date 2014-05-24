@@ -1,0 +1,33 @@
+﻿<div ng-controller="OptionsCtrl">
+	<form role="form" name="form">
+		<div class="form-group">
+			<label>On every input can't have over 2 'A' letter occurences; On blur min length is 3; On button press max length is 5;</label>
+			<!--Options constructed as object in controller-->
+			<input type="text"
+				class="form-control"
+				name="optionsExampleA"
+				ng-model="optionsExampleA"
+				ng-dynamic-validator="optionsObj">
+			Model state : {{optionsExampleA}}
+		</div>
+		<div class="form-group">
+			<label>On every input can't have over 2 'A' letter occurences; On blur min length is 3, max length is 10; On button press max length is 5;</label>
+			<!--Options constructed as inline object-->
+			<!--Notice that built in validators don't require 'validators' service reference. 
+				The whole object will be resolved as $parse(optionsString)($scope,validatorsSrv), making them available by name-->
+			<input type="text"
+				class="form-control"
+				name="optionsExampleB"
+				ng-model="optionsExampleB"
+				ng-dynamic-validator="{ _validateTogetherGroups: ['options-group'],
+										_validateRequestGroups: ['options'],
+										_excludedNonValids: 'setValid',					
+										_validateTogetherGroupsBehaviour: 'afterEach',
+										default: aValidator,											
+										blur: [minLength(3),maxLength(10)],
+										$beforeSend: maxLength(5)}">
+			Model state : {{optionsExampleB}}
+		</div>
+		<button class="btn btn-primary" ng-click="requestValidate()">Validate '$beforeSend' validators on 'options' request group</button>
+	</form>
+</div>

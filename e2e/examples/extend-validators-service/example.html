@@ -1,0 +1,12 @@
+<div role="form">
+    <div class="form-group">
+        <label>Myst be equal to 5 to be valid</label>
+        <input type="text"
+               class="form-control"
+               name="extendValidatorsService"
+               placeholder="Enter 5"
+               ng-model="extendValidatorsService"
+               ng-dynamic-validator="{default:equals(5)}">
+        Model state : {{extendValidatorsService}}
+    </div>
+</div>

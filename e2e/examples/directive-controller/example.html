@@ -1,0 +1,90 @@
+﻿<div id="directiveControllerExmlp" ng-controller="directiveControllerExmplCtrl">
+    <form role="form" name="form">
+
+        <div class="well">
+            <label>Change options like '_excludedNonValids'</label>
+            <div class="form-group" ng-new-scope>
+                <label>{blur : maxLnegth(5)}; Change options on the fly. Current excluded non-valids behaviour '{{getCurrentExcludedNonValidsBeh()}}';</label>
+                <button ng-click="setCurrentExcludedNonValidsBeh('validate')" id="switchBehToValidateBtn">Switch to 'validate'</button>
+                <button ng-click="setCurrentExcludedNonValidsBeh('setValid')" id="switchBehToSetValidBtn">Switch to 'setValid'</button>
+                <input type="text"
+                       class="form-control"
+                       name="controllerExampleA"
+                       ng-model="controllerExampleA"
+                       ng-dynamic-validator="{blur: maxLength(5)}"
+                       controller-demo-directive />
+                Model state : {{controllerExampleA}}
+            </div>
+        </div>
+
+        <div class="well">
+            <label>Add \ remove input to validate together groups</label>
+            <label>Values must be equal. To get the expected validation behaviour - click the 'add to group' button. Otherwise validation will lag by one character.</label>
+            <div class="form-group" ng-new-scope>
+                <label>This input is already included in the right group</label>
+                <input type="text"
+                       class="form-control"
+                       name="controllerExampleBValA"
+                       ng-model="vtgTestValues.a"
+                       ng-dynamic-validator="{default: aMustEqualB,
+                                            _validateTogetherGroups:['dce']}"
+                       controller-demo-directive />
+                Model state : {{vtgTestValues.a}} <br />
+            </div>
+            <div class="form-group" ng-new-scope>
+                <label>
+                    This input is currently {{isPartOfVTGroup() ? 'included in the right group' : 'not included in the right group'}}
+                    <button ng-click="addToValidateTogetherGroup()" id="addToVTGBtn">Add to group</button>
+                    <button ng-click="removeFromValidateTogetherGroup()" id="removeFromVTGBtn">Remove from group </button>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       name="controllerExampleBValB"
+                       ng-model="vtgTestValues.b"
+                       ng-dynamic-validator="{default: aMustEqualB}"
+                       controller-demo-directive />
+                Model state : {{vtgTestValues.b}}
+            </div>
+        </div>
+
+        <div class="well">
+            <label>Add \ remove input to request groups</label>  
+            <div class="form-group" ng-new-scope>
+                <label>
+                    This input is currently {{isPartOfRequestGroup() ? 'included in the group' : 'not included in the group'}}
+                    <button ng-click="addToRequestGroup()" id="addToRGBtn">Add to group</button>
+                    <button ng-click="removeFromRequestGroup()" id="removeFromRGBtn">Remove from group </button>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       name="controllerExampleC"
+                       ng-model="controllerExampleC"
+                       ng-dynamic-validator="{$testRequest: maxLength(5)}"
+                       controller-demo-directive />
+                Model state : {{controllerExampleC}}
+                <div class="form-group">
+                    <button class="btn btn-primary" id="requestGroupValidationBtn" ng-click="requestValidation()"> Request group validation maxLength(5)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <label>Add \ remove validators</label>
+            <div class="form-group" ng-new-scope>
+                <label>
+                    This minLength(5) validator is currently {{hasMinLengthValidator() ? 'present' : 'not present'}}
+                    <button ng-click="addMinLengthValidator()" id="addValidatorBtn">Add validator</button>
+                    <button ng-click="removeMinLengthValidator()" id="removeValidatorBtn">Remove validator</button>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       name="controllerExampleD"
+                       ng-model="controllerExampleD"
+                       ng-dynamic-validator="{}"
+                       controller-demo-directive />
+                Model state : {{controllerExampleD}}
+            </div>
+        </div>
+
+    </form>
+</div>

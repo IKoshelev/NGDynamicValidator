@@ -1,0 +1,30 @@
+{
+  "name": "NGDynamicValidator demo",
+  "version": "0.0.1",
+  "authors": [
+    "Ivan Koshelev koshelew@gmail.com"
+  ],
+  "description": "Demo site for NGDynamicValidator project",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "angular",
+    "vaidation",
+    "validator"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "jquery": "~2.1.1",
+    "angular": "~1.2.16",
+	"bootstrap-css": "~3.1.1",
+    "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git#~0.11.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}

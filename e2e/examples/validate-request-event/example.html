@@ -1,0 +1,69 @@
+﻿<div id="validateRequestEventExample" ng-controller="ValidateRequestEventCtrl">
+    <form role="form" name="form">
+        <div class="well">
+            <label>ID documents. Numbers must be 8 or more symbols. At least one is required to save final.</label>
+            <span class="label label-danger"
+                  id="errorLabel"
+                  ng-show="form.$error.idDocumentRequired">Enter al least one</span>
+            <div class="form-group">
+                <label>Passport number</label>
+                <input type="text"
+                       class="form-control"
+                       name="passport"
+                       ng-model="passport"
+                       ng-dynamic-validator="{_validateTogetherGroups: ['vre-id-document'],
+										_validateRequestGroups: ['vre'],
+                                        _excludedNonValids: 'validate',
+										default: minLength(8),
+										$beforeSaveFinal: idDocumentRequired}">
+                Model state : {{passport}}
+            </div>
+            <div class="form-group">
+                <label>Foreign passport number</label>
+                <input type="text"
+                       class="form-control"
+                       name="foreignPassport"
+                       ng-model="foreignPassport"
+                       ng-dynamic-validator="{_validateTogetherGroups: ['vre-id-document'],
+										_validateRequestGroups: ['vre'],
+                                        _excludedNonValids: 'validate',
+										default: minLength(8),
+										$beforeSaveFinal: idDocumentRequired}">
+                Model state : {{foreignPassport}}
+            </div>
+            <div class="form-group">
+                <label>Drivers license number</label>
+                <input type="text"
+                       class="form-control"
+                       name="driversLicense"
+                       ng-model="driversLicense"
+                       ng-dynamic-validator="{_validateTogetherGroups: ['vre-id-document'],
+										_validateRequestGroups: ['vre'],
+                                        _excludedNonValids: 'validate',
+										default: minLength(8),
+										$beforeSaveFinal: idDocumentRequired}">
+                Model state : {{driversLicense}}
+            </div>
+        </div>
+
+        <div class="alert alert-success" id="message" ng-show="message">{{message}}</div>
+        <div class="alert alert-danger" id="error" ng-show="error">{{error}}</div>
+
+        <button class="btn btn-primary"
+                id="vreBtnSaveDraft"
+                ng-disabled="form.$invalidEventsSummary.default
+                             || form.$invalidEventsSummary.blur
+                             || form.$invalidEventsSummary.$beforeSaveDraft"
+                ng-click="saveDraft()">
+            Save draft
+        </button>
+
+        <button class="btn btn-success"
+                id="vreBtnSaveFinal"
+                ng-disabled="form.$invalid"
+                ng-click="saveFinal()">
+            Save final
+        </button>
+
+    </form>
+</div>

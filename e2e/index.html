@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css" />
+    <!-- endbower -->
+
+    <link rel="stylesheet" href="content/site.css" />
+
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
+
+    <script src="../src/shims/function-name.js"></script>
+    <script src="../src/ValidatorsProvider.js"></script>
+    <script src="../src/NGDynamicValidator.js"></script>
+    <script src="examples/demoApp.js"></script>
+
+	<!-- examples -->
+    
+	<script src="examples/options/script.js"></script>
+    <script src="examples/validate-request-event/script.js"></script>   
+    <script src="examples/validate-together-groups/script.js"></script>
+    <script src="examples/passing-values-to-built-in-validators/script.js"></script>
+    <script src="examples/extend-validators-service/script.js"></script>
+    <script src="examples/directive-controller/script.js"></script>
+
+<title>NGDynamicValidator demo</title>
+</head>
+<body ng-app="DemoApp" ng-controller="ExamplesController">
+    <div ng-repeat="example in examples">
+        <div ng-include="example.examplleUrl"></div>
+    </div>
+
+</body>
+</html>

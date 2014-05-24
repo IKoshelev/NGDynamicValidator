@@ -1,0 +1,46 @@
+﻿<div id="passingValuesToBuiltInValidatorsExmpl" ng-controller="PassingValuesToBuiltInValidatorsCtrl">
+    <form name="form" role="form">
+        <label>minLength(3) on every input. To each validator the value is passed in a different way</label>
+        <div class="well">
+            <div class="form-group">
+                <label>By value inline</label>
+                <input type="text"
+                       class="form-control"
+                       name="inputA"
+                       ng-model="inputA"
+                       ng-dynamic-validator="{default:minLength(3)}">
+                Model state : {{inputA}}
+            </div>
+            <div class="form-group">
+                <label>By value from scope (same as inline)</label>
+                <input type="text"
+                       class="form-control"
+                       name="inputB"
+                       ng-model="inputB"
+                       ng-dynamic-validator="{default:minLength(value)}">
+                Model state : {{inputB}}
+            </div>
+            <div class="form-group">
+                <label>By value object from scope. Think of it as passing by reference. Current minLength is : {{valueObj.value}} 
+                    <button id="buttonIncr" ng-click="valueObj.value = valueObj.value + 1">+1</button> 
+                    <button id="buttonDecr" ng-click="valueObj.value = valueObj.value - 1">-1</button> 
+                </label>
+                <input type="text"
+                       class="form-control"
+                       name="inputC"
+                       ng-model="inputC"
+                       ng-dynamic-validator="{default:minLength(valueObj)}">
+                Model state : {{inputC}}
+            </div>
+            <div class="form-group">
+                <label>By value provider function. Value provider will be called to get the value for each validation. In this case, it returns the value from value obj used on the previous input.</label>
+                <input type="text"
+                       class="form-control"
+                       name="inputD"
+                       ng-model="inputD"
+                       ng-dynamic-validator="{default:minLength(valueProviderFn)}">
+                Model state : {{inputD}}
+            </div>
+        </div>
+    </form>
+</div>
