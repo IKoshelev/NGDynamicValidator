@@ -4,7 +4,6 @@
 /// <reference path="../../src/typings/jquery/jquery.d.ts" />
 /// <reference path="../../src/typings/angular-protractor/angular-protractor.d.ts" />
 /// <reference path="../../src/typings/jasmine/jasmine.d.ts" />
-'use strict';
 describe('Options', function () {
     var hasClass = function (element, className) {
         return element.getAttribute('class').then(function (classAtr) {

@@ -4,9 +4,6 @@
 /// <reference path="../../src/typings/jquery/jquery.d.ts" />
 /// <reference path="../../src/typings/angular-protractor/angular-protractor.d.ts" />
 /// <reference path="../../src/typings/jasmine/jasmine.d.ts" />
-
-'use strict';
-
 describe('VALIDATE_REQUEST', function () {
 
     var hasClass = function (element: protractor.WebElement, className: string) {

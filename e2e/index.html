@@ -17,6 +17,15 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
 
+    <!-- rainbow -->
+    <link href="bower_components/rainbow/themes/github.css" rel="stylesheet" type="text/css">
+    <script src="bower_components/rainbow/js/rainbow.js"></script>
+    <script src="bower_components/rainbow/js/language/generic.js"></script>
+    <script src="bower_components/rainbow/js/language/javascript.js"></script>
+    <script src="bower_components/rainbow/js/language/html.js"></script>
+    <!-- endrainbow -->
+
+
     <script src="../src/shims/function-name.js"></script>
     <script src="../src/ValidatorsProvider.js"></script>
     <script src="../src/NGDynamicValidator.js"></script>
@@ -34,9 +43,38 @@
 <title>NGDynamicValidator demo</title>
 </head>
 <body ng-app="DemoApp" ng-controller="ExamplesController">
-    <div ng-repeat="example in examples">
-        <div ng-include="example.examplleUrl"></div>
-    </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div ng-repeat="example in examples">
+
+                    <div class="page-header">
+                        <h1>{{example.name}}</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 show-grid" ng-include="example.exampleUrl"></div>
+                        <div class="col-md-6" ng-include="example.descriptionUrl"></div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row code">
+
+                        <tabset>
+                            <tab heading="{{tab.name}}" ng-repeat="tab in example.tabs">
+                                <div ng-bind-code="tab.url" />
+                            </tab>
+                        </tabset>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>

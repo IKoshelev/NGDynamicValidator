@@ -4,16 +4,19 @@
 /// <reference path="../../src/typings/jquery/jquery.d.ts" />
 /// <reference path="../../src/typings/angular-protractor/angular-protractor.d.ts" />
 /// <reference path="../../src/typings/jasmine/jasmine.d.ts" />
+
 'use strict';
+
 describe('Directive controller', function () {
-    var hasClass = function (element, className) {
+
+    var hasClass = function (element: protractor.WebElement, className: string) {
         return element.getAttribute('class').then(function (classAtr) {
             return classAtr.split(' ').indexOf(className) !== -1;
         });
     };
 
     var ptor = protractor.getInstance();
-
+  
     browser.get('index.html');
 
     ptor.waitForAngular();
@@ -58,7 +61,8 @@ describe('Directive controller', function () {
         label.click();
 
         expect(hasClass(input, "ng-valid")).toBe(false);
-    });
+
+	});
 
     it('should allow to add \ remove input to validateTogetherGroups', function () {
         var ptor = protractor.getInstance();
@@ -87,9 +91,10 @@ describe('Directive controller', function () {
 
         expect(hasClass(inputA, "ng-valid")).toBe(true);
         expect(hasClass(inputB, "ng-valid")).toBe(true);
+
     });
 
-    it('should allow to add \ remove input to validateTogetherGroups', function () {
+    it('should allow to add \ remove input to requesetGroups', function () {
         var ptor = protractor.getInstance();
         var rootElem = ptor.findElement(protractor.By.id("directiveControllerExmlp"));
         var addBtn = rootElem.findElement(protractor.By.id("addToRGBtn"));
@@ -98,7 +103,7 @@ describe('Directive controller', function () {
         var input = rootElem.findElement(protractor.By.name("controllerExampleC"));
 
         input.sendKeys("1234567");
-
+        
         expect(hasClass(input, "ng-valid")).toBe(true);
 
         requestBtn.click();
@@ -122,13 +127,14 @@ describe('Directive controller', function () {
         requestBtn.click();
 
         expect(hasClass(input, "ng-valid")).toBe(true);
+
     });
 
-    it('should allow to add \ remove input to validateTogetherGroups', function () {
+    it('should allow to add \ remove validators', function () {
         var ptor = protractor.getInstance();
         var rootElem = ptor.findElement(protractor.By.id("directiveControllerExmlp"));
         var addBtn = rootElem.findElement(protractor.By.id("addValidatorBtn"));
-        var removeBtn = rootElem.findElement(protractor.By.id("removeValidatorBtn"));
+        var removeBtn = rootElem.findElement(protractor.By.id("removeValidatorBtn"));       
         var input = rootElem.findElement(protractor.By.name("controllerExampleD"));
 
         input.sendKeys("123");
@@ -150,6 +156,8 @@ describe('Directive controller', function () {
         input.sendKeys(protractor.Key.BACK_SPACE);
 
         expect(hasClass(input, "ng-valid")).toBe(true);
+
     });
+
+
 });
-//# sourceMappingURL=directive-conroller.js.map
