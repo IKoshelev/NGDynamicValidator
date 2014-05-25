@@ -77,7 +77,7 @@
                 </p>
 
                 <p>
-                    Validators that trigger on events like blur and have resulted invalid can be assigned different flexible behaviors, like validating
+                    Validators that trigger on events like blur and have resulted invalid can be assigned different flexible behaviours, like validating
                     on every possibility rather then just blur, until they are valid again, thus providing the user with quick assessment of the correctnes of his input.
                 </p>
 
@@ -146,7 +146,7 @@ $scope.validator = function minLength(value, validationInfo){
                     <code>validationInfo</code> - additional information about the event, that triggered validation<br />
                     <code>return</code> - can be either bool (true = valid) or an object specifiying validity and the modified value to be passed to the next
                     validator function or $parser (should be used mainly to return <code>undefined</code> when you don't want invalid value to be passed to the model,
-                    as in vanilla angular directives behavior).
+                    as in vanilla angular directives behaviour).
                     <code>validationInfo</code> will be used very rarely, but just in case, here is it's 
                     <button ng-init="isCollapsed = true" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">description</button>
                     <div collapse="isCollapsed">
@@ -188,7 +188,7 @@ interface IValidationTrigger {
                     its current view value will pass through the entire $parsers pipeline of its ngModelCtrl as it normally
                     would on user input and will be passed to the model, if no validator overrides this by returning undefined.
                     One of the consequences of this is the fact that any vanilla angular validators and $parsers from other
-                    custom directives will also trigger, which is usually the desired behavior.
+                    custom directives will also trigger, which is usually the desired behaviour.
                 </p>
 
 
