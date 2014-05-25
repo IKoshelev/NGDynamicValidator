@@ -3,9 +3,9 @@
 /// <reference path="typings/angularjs/angular.d.ts" />
 /// <reference path="typings/jquery/jquery.d.ts" />
 /// <reference path="interfaces.ts" />
-var valdiatorModule = angular.module("NGDynamicValidator", []);
+var NGDynamicValdiatorModule = angular.module("NGDynamicValidator", []);
 
-valdiatorModule.provider("validators", [function () {
+NGDynamicValdiatorModule.provider("validators", [function () {
         var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
 
         var that = this;

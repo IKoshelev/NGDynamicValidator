@@ -1,3 +1,41 @@
 ﻿<div>
-
+    <p>
+        You can trigger validation of different event combinations via
+        <pre>
+        <code>
+$scope.$broadcast(eventNames.validateRequest, ["default", "blur", "$beforeSaveFinal"]);
+            </code>
+        </pre>
+    </p>
+    <p>
+        eventNames is an injectable constant to avoid misspells, but you can use a string instead.
+        <pre>
+        <code>
+NGDynamicValdiatorModule.constant("validationEventNames", {
+    validateRequest: "VALIDATE_REQUEST"
+});
+        </code>
+        </pre>
+        NGDynamicValidator listens for a $scope event named "VALIDATE_REQUEST" and triggers validation for every event name that is passed as 
+        the second parameter - you can trigger the 'default' event this way, as well as any JS events or pseudo event (starting with $). 
+    </p>
+    <p>
+        An array of strings with specific validationRequestGroups can be passed as a third parameter to the $broadcast / $emit. 
+        If you do - only inputs belonging to at least one of those groups will validate.  
+   </p>
+    <p>
+        Combined validation summary for specific events will be available on the form controller as showcased by
+        <pre><code>
+ng-disabled="form.$invalidEventsSummary.default
+            || form.$invalidEventsSummary.blur
+            || form.$invalidEventsSummary.$beforeSaveDraft"  
+        </code></pre>
+        and on each input controller on that form, much in the same way as $error of vanilla angular. $error is also maintained. The difference between
+        the two is that $error agregates validity status from $setValidity, for which NGDynamicValidator uses names of the validator functions, and 
+        $invalidEventsSummary agregates this information for different event names. In both cases, one function from an array returning false invalidates
+        the entire $setValidity key / event name.
+   </p>
+   <p>
+       Do note the propagation model of angular events and make sure that the right scope receives them.
+   </p>
 </div>

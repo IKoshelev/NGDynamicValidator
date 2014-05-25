@@ -16,7 +16,6 @@
     <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
-
     <!-- rainbow -->
     <link href="bower_components/rainbow/themes/github.css" rel="stylesheet" type="text/css">
     <script src="bower_components/rainbow/js/rainbow.js"></script>
@@ -31,22 +30,168 @@
     <script src="../src/NGDynamicValidator.js"></script>
     <script src="examples/demoApp.js"></script>
 
-	<!-- examples -->
-    
-	<script src="examples/options/script.js"></script>
-    <script src="examples/validate-request-event/script.js"></script>   
+    <!-- examples -->
+
+    <script src="examples/options/script.js"></script>
+    <script src="examples/validate-request-event/script.js"></script>
     <script src="examples/validate-together-groups/script.js"></script>
     <script src="examples/passing-values-to-built-in-validators/script.js"></script>
     <script src="examples/extend-validators-service/script.js"></script>
     <script src="examples/directive-controller/script.js"></script>
 
-<title>NGDynamicValidator demo</title>
+    <title>NGDynamicValidator demo</title>
 </head>
 <body ng-app="DemoApp" ng-controller="ExamplesController">
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
+                <h1 class="page-header">NGDynamicValidator</h1>
+
+                <p>
+                    NGDynamicValidator is and AngularJS module that provides infrastructure for advanced html forms validation scenarios.
+                    It allows you to decorate an input with validator functions triggered by different JS events. It also allows you to attach such
+                    functions to pseudo-events and trigger them with angular events system.
+                <p />
+
+                <p>
+                    Typical scenario for NGDynamicValidator is an input that needs to validate something on every key entered, but also needs to
+                    validate final state on blur and do a complex validation of an entire form once user has clicked the 'save' button.
+                </p>
+
+                <p>
+                    The VALIDATION_REQUEST angular event from this module allows you to trigger events for which you specified validators in any combinations from your JS
+                    code. Validation summary for forms and each ngModelCtrl is augmented with information on validator collections for which events resulted invalid,
+                    much like the $error object of vanilla Angular.
+                </p>
+
+                <p>
+                    Inputs can be marked as belonging to a specific requestGroup with the ability to trigger validation of chosen event combinations
+                    only on a specific groups.
+                </p>
+
+                <p>
+                    NGDynamicValidator provides ability to unify inputs into validateTogetherGroups where events on one input will trigger
+                    identical validation on other inputs in the same validateTogetherGroup.
+                </p>
+
+                <p>
+                    Validators that trigger on events like blur and have resulted invalid can be assigned different flexible behaviors, like validating
+                    on every possibility rather then just blur, until they are valid again, thus providing the user with quick assessment of the correctnes of his input.
+                </p>
+
+                <p>
+                    Also this functionality is decribed in detail below.
+                </p>
+
+                <h3>Dependencies</h3>
+
+                <p>
+                    NGDynamicValidator was developed with <a href="http://angularjs.org">AngularJS</a> 1.2 in mind, but should work with earlier version as well.<br />
+                    It should work with jQuery subset provided by Angular.<br />
+                    Besides that, the only dependency is <a href="http://underscorejs.org/">Underscore</a>
+                </p>
+
+                <h3>Installation</h3>
+
+                <p>
+                    Latest version is available at <a href="https://github.com/IKoshelev/NGDynamicValidator">GitHub</a>.
+                    You need the content of the <strong>src</strong> folder, specifically two files must be added to your site in that order.
+                    <pre><code>
+                        src/NGValidatorsProvider.js
+                        src/NGDynamicValidtor.js
+                    </pre></code>
+                </p>
+
+                <p>
+                    Then add the module they contain to the dependencies of your app module
+                    <pre><code>
+                        var myApp = angular.module("myApp", ["NGDynamicValidator"]); 
+                    </pre></code>
+                </p>
+
+                <p>
+                    Also, you should include a Function.prototype.name method shim
+                    as NGDynamicValidator relies on function names to determine the name of validation errors.
+                    <pre><code>
+                        src/shims/function-name.js
+                    </pre></code>
+                </p>
+
+                <p>
+                    Lastly, if you are using TypeScript in your project - .ts files are available in the <strong>src</strong> folder.
+                    The directive is fully developed in TS, including the spec files.
+                </p>
+
+                <h1>Usage examples</h1>
+
+                <h3>Validator functions</h3>
+
+                <p>
+                    Validation logic used by NGDynamicValidator must be implemented via validator functions.
+                    This function are assigned by themselves or as arrays of such functions to keys on an options object corresponding to event names,
+                    for which they will be used (described later).
+                </p>
+                <p>
+                    Validator functions must have the following signature:
+                    <pre><code>
+$scope.validator = function minLength(value, validationInfo){
+    //some logics
+    return bool | {isValid: bool, modifiedValue: any};
+}
+                    </code></pre>
+                    <code>Name of the function</code> (minLength in this case) will be used to set validity (as in <code>ngModelCtrl.$setValidity('minLength',true)</code>)<br />
+                    <code>value</code> - incoming view value to be validated<br />
+                    <code>validationInfo</code> - additional information about the event, that triggered validation<br />
+                    <code>return</code> - can be either bool (true = valid) or an object specifiying validity and the modified value to be passed to the next
+                    validator function or $parser (should be used mainly to return <code>undefined</code> when you don't want invalid value to be passed to the model,
+                    as in vanilla angular directives behavior).
+                    <code>validationInfo</code> will be used very rarely, but just in case, here is it's 
+                    <button ng-init="isCollapsed = true" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">description</button>
+                    <div collapse="isCollapsed">
+                            <pre><code>
+interface IValidationInfo {
+    trigger: IValidationTrigger;        //Info on the event, that triggered the validation. Will be a frozen object
+    currentState: boolean;              //Current state of validity for this input with this validator
+    isIncludedInTrigger: boolean;       //True if validating due to normal event handling flow, 
+                                        //false if would not normally be validated on this event but
+                                        //_excludedNonValids option forces it to validate 
+    communicationBag: {};               //Just in case you need some communication between validators - here is the place to do it.
+                                        //This object will be shared among all IValidationInfo instances 
+                                        //created due to a single event (including validateTogetherGroups)
+                                        //P.S. If you are forced to use communicationBag - something should 
+                                        //probably be changed about your architecture
+}
+
+//Information about the event that triggered validation. Object and its property objects will be frozen.
+interface IValidationTrigger {
+    isJSEvent: boolean;                 //True if validating on jQuery event, 
+                                        //false if on angular validateRequest event or normal ngModel workflow
+    isAngularEvent: boolean;            //True if validating on angular validateRequest event, 
+                                        //false if on jQuery event or normal ngModel workflow
+    isDefaultEvent: boolean;            //True if validation formatter is firing due to normal 
+                                        //ngModel workflow (meaning, it was not triggered 
+                                        //by the jqeuery or angular event handlers of this directive)
+                                        //do note, this will be false for validation on angular validateRequest 
+                                        //event that just includes the "default" event name among requested event names
+    eventNames: string[];               //Names of the events that were requested in this validation
+    requestGroupNames: string[];        //Names of the groups that were requested in this validation
+    isValidatingTogether: boolean;      //True if validation triggered not by an event on owner input, 
+                                        //but on an input that shared validateTogetherGroups
+}
+                            </code></pre>
+                    </div>
+                </p>
+                <p>
+                    Also, do note, whenever we say that an input validates or validation is triggered on an input, it means that
+                    its current view value will pass through the entire $parsers pipeline of its ngModelCtrl as it normally
+                    would on user input and will be passed to the model, if no validator overrides this by returning undefined.
+                    One of the consequences of this is the fact that any vanilla angular validators and $parsers from other
+                    custom directives will also trigger, which is usually the desired behavior.
+                </p>
+
+
 
                 <div ng-repeat="example in examples">
 

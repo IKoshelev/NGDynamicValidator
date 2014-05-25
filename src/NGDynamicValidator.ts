@@ -546,13 +546,13 @@ class NGDynamicValidatorCtrl {
     }
 }
 
-valdiatorModule.constant("excludedNonValidsBehaviours", NGDynamicValidatorCtrl.excludedNonValidsBehaviours);
+NGDynamicValdiatorModule.constant("excludedNonValidsBehaviours", NGDynamicValidatorCtrl.excludedNonValidsBehaviours);
 
-valdiatorModule.constant("validateTogetherGroupsBehaviours", NGDynamicValidatorCtrl.validateTogetherGroupsBehaviours);
+NGDynamicValdiatorModule.constant("validateTogetherGroupsBehaviours", NGDynamicValidatorCtrl.validateTogetherGroupsBehaviours);
 
-valdiatorModule.constant("validationEventNames", NGDynamicValidatorCtrl.validationEventNames);
+NGDynamicValdiatorModule.constant("validationEventNames", NGDynamicValidatorCtrl.validationEventNames);
 
-valdiatorModule.directive("ngDynamicValidator", [function () {
+NGDynamicValdiatorModule.directive("ngDynamicValidator", [function () {
 
         var directive: ng.IDirective = {
             require: ["ngModel","^?form","ngDynamicValidator"],

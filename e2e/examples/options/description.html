@@ -1,3 +1,70 @@
 ﻿<div>
-
+    <p>
+        NGDynamicValidtor is applied to a directive like this.
+        <br />
+        <code>
+            &lt;input ng-model="name" ng-dynamic-validator="options" /&gt;
+        </code>
+        <br />
+    </p>
+    <p>
+        Options object can be defined in you controller and passed via scope,
+        or you can create a json object string inline in HTML as value ot the ng-dynamic-validator attribute.
+        If you choose the inline path - your string will be parsed via <code>$parse</code> Angular service
+        against the $scope of the directive and <code>validators</code> service, allowing you to reference
+        properties from both of them (<code>validators</code> service contains standard validtor function 
+        like maxLength and required, it is described later). This example demostrates both approaches.
+    </p>
+    <p>
+        Keys on the options object are as follows:
+        <ul>
+            <li>
+                <code>_validateRequestGroups</code> - array of strings. Used to specificaly target VALIDATION_REQUEST angular events
+                at a certain group of inputs.
+            </li>
+            <li>
+                <code>_validateTogetherGroups</code> - array of strings. Elements that belong to a group
+                will trigger validation of that group when they validate - every input in the group will also validate
+                (events being validated are the same that triggered validation on the original input).
+            </li>
+            <li>
+                <code>_validateTogetherGroupsBehaviour</code> - string describing desired behaviour. To avoid misspells, there is an injectable angular constant
+                <pre><code>
+NGDynamicValdiatorModule.constant("excludedNonValidsBehaviours", {
+    //triggers but does not validate with the group
+    onlyTrigger: "onlyTrigger",
+    //triggers once per group validation <strong>(default)</strong>
+    afterFirst: "afterFirst",
+    //will validate after each input in the gruop 
+    afterEach: "afterEach"      
+};
+                </code></pre>
+            </li>
+            <li>
+                <code>_excludedNonValids</code> - string describing desired behaviour. Behaviour of the valitdors for events that resulted
+                invalid during the last time they validated.
+                <pre><code>
+NGDynamicValdiatorModule.constant("excludedNonValidsBehaviours",{
+    //Once an event like blur has resulted in invalid, 
+    //it will validated on every ocasion, 
+    //untill resulting valid again <strong>(default)</strong>
+    validate: "validate",
+    //Do nothing - if such an event is not participating 
+    //in a triggered validation - it will not trigger
+    doNothing: "doNothing",
+    //Once invalid, the event will be set valid again on the 
+    //next validation in which it does not participate
+    setValid: "setValid"   
+};
+                </code></pre>
+            </li>
+            <li>
+                <code>eventName</code> - any other key not starting with a '$' will be treated as a JS event name, for which a handler will be attached.
+                Pass a validator function or an array of such functions to it.
+            </li>
+            <li>
+                <code>$eventName</code> - pseudo event name, validators for it can only be triggered via angular $scope event, described later.
+                Validator functions are passed to it same as to js eventNames.
+            </li>
+        </ul>    
 </div>
