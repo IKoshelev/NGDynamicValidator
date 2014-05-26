@@ -1,3 +1,40 @@
 ﻿<div>
-
+    <p>
+        Lets say you need to validate an input only on <code>blur</code>, but once
+        that results invalid you want to give your user feedback on validity as soon,
+        as he corrects the input, without waiting for 'blur' to happen again. Make that
+        a click of a "save" button and resulting <code>$beforeSave</code> event instead of blur,
+        and it is definitely a good idea to mark each field as valid as soon as it is corrected.
+        Not to mention, that you can disable the "save" button untill <code>$beforeSave</code> event
+        is valid for each input again.
+    </p>
+    <p>
+        <code>_excludedNonValids</code> allows you to do jsut that by changing the behaviour of events that resulted
+        in invalid the last time they were validating, but would not noramlly participate in the current valiation.
+        The first input of this example showcases a typical case - maxLength(5) will be validated on <code>blur</code>
+        and if it result in invalid, it will validate on each symbol entered, untill length of the input becomes 5 or less, 
+        at which point it will instantly become valid and won't trigger again untill next blur.
+    </p>
+    <p>
+        Overall avaliable options are:
+        <ul>
+            <li>
+                <code>"validate"</code> - the default behvaiour described above
+            </li>
+            <li>
+                <code>"setValid"</code> - all events that do not participate in a triggered validation will 
+                be set valid. Seccond input in the example showcases this. If you enter 7 symbols into it, 
+                blur it and then enter another - blur event will instantly become valid. It will reevaluate on next actual 
+                blur event as a part of normal workflow.
+            </li>
+            <li>
+                <code> "doNothing"</code> - validation is only triggered for events that participate, others are left
+                valid or invalid as is, without recheck.
+            </li>
+        </ul>
+    </p>
+    <p>
+        This behaviour applies to any validation, no matter what actually triggered it - be it the <code>default</code> event,
+        a JS event or VALIDATION_REQUEST angular event.
+    </p>
 </div>

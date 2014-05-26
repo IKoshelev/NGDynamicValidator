@@ -82,7 +82,7 @@
                 </p>
 
                 <p>
-                    Also this functionality is decribed in detail below.
+                    All this functionality is decribed in detail below.
                 </p>
 
                 <h3>Dependencies</h3>
@@ -130,7 +130,7 @@
 
                 <p>
                     Validation logic used by NGDynamicValidator must be implemented via validator functions.
-                    This function are assigned by themselves or as arrays of such functions to keys on an options object corresponding to event names,
+                    This functions are assigned by themselves or as arrays of such functions to keys on an options object corresponding to event names,
                     for which they will be used (described later).
                 </p>
                 <p>
@@ -146,7 +146,7 @@ $scope.validator = function minLength(value, validationInfo){
                     <code>validationInfo</code> - additional information about the event, that triggered validation<br />
                     <code>return</code> - can be either bool (true = valid) or an object specifiying validity and the modified value to be passed to the next
                     validator function or $parser (should be used mainly to return <code>undefined</code> when you don't want invalid value to be passed to the model,
-                    as in vanilla angular directives behaviour).
+                    as in vanilla angular directives behaviour).<br />
                     <code>validationInfo</code> will be used very rarely, but just in case, here is it's 
                     <button ng-init="isCollapsed = true" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">description</button>
                     <div collapse="isCollapsed">
@@ -170,7 +170,7 @@ interface IValidationTrigger {
                                         //false if on angular validateRequest event or normal ngModel workflow
     isAngularEvent: boolean;            //True if validating on angular validateRequest event, 
                                         //false if on jQuery event or normal ngModel workflow
-    isDefaultEvent: boolean;            //True if validation formatter is firing due to normal 
+    isDefaultEvent: boolean;            //True if validation is firing due to normal 
                                         //ngModel workflow (meaning, it was not triggered 
                                         //by the jqeuery or angular event handlers of this directive)
                                         //do note, this will be false for validation on angular validateRequest 

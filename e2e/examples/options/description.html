@@ -13,14 +13,14 @@
         If you choose the inline path - your string will be parsed via <code>$parse</code> Angular service
         against the $scope of the directive and <code>validators</code> service, allowing you to reference
         properties from both of them (<code>validators</code> service contains standard validtor function 
-        like maxLength and required, it is described later). This example demostrates both approaches.
-    </p>
+        like <code>maxLength</code> and <code>required</code>, it is described later). This example demostrates both approaches.
+</p>
     <p>
         Keys on the options object are as follows:
         <ul>
             <li>
                 <code>_validateRequestGroups</code> - array of strings. Used to specificaly target VALIDATION_REQUEST angular events
-                at a certain group of inputs.
+                at a certain groups of inputs.
             </li>
             <li>
                 <code>_validateTogetherGroups</code> - array of strings. Elements that belong to a group
@@ -28,7 +28,11 @@
                 (events being validated are the same that triggered validation on the original input).
             </li>
             <li>
-                <code>_validateTogetherGroupsBehaviour</code> - string describing desired behaviour. To avoid misspells, there is an injectable angular constant
+                <code>_validateTogetherGroupsBehaviour</code> - string describing desired behaviour. This applies when a 
+                VALIDATION_REQUEST is passing through the scopes of you form, causing each input to validate and trigger
+                group validation (i.e. group validation will be triggered by every input in the group). Read detailed example
+                below for more info.
+                To avoid misspells, there is an injectable angular constant
                 <pre><code>
 NGDynamicValdiatorModule.constant("excludedNonValidsBehaviours", {
     //triggers but does not validate with the group
@@ -63,8 +67,14 @@ NGDynamicValdiatorModule.constant("excludedNonValidsBehaviours",{
                 Pass a validator function or an array of such functions to it.
             </li>
             <li>
-                <code>$eventName</code> - pseudo event name, validators for it can only be triggered via angular $scope event, described later.
+                <code>$eventName</code> - pseudo event name, validators for such events can only be triggered via angular $scope event, described later.
                 Validator functions are passed to it same as to js eventNames.
+            </li>
+            <li>
+                <code>default</code> - you can treat this any other event name, though it does not create any event listeners of its own. Rather,
+                this validators will fire whenever <code>ng-model="..."</code> decides to update the model and invokes the $parses chain (and as such,
+                any manual triggering of the $setViewValue will also include it). 
+                Prior to ng-model-options this was always user input. With ng-model-options it is whatever the <code>updateOn</code> is set to.
             </li>
         </ul>    
 </div>

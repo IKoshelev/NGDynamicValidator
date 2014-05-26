@@ -77,7 +77,7 @@ demoApp.controller("ExamplesController", [
                 plunkerUrl: ""
             },
             {
-                name: "Passing values to built in valitor functions",
+                name: "Built in validator functions and passing values to them",
                 scriptUrl: "examples/passing-values-to-built-in-validators/script.js",
                 exampleUrl: "examples/passing-values-to-built-in-validators/example.html",
                 descriptionUrl: "examples/passing-values-to-built-in-validators/description.html",

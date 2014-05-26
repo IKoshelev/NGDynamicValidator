@@ -43,7 +43,7 @@ interface IValidationTrigger {
 
     isJSEvent: boolean;                 //True if validating on jQuery event, false if on angular validateRequest event or normal ngModel workflow
     isAngularEvent: boolean;            //True if validating on angular validateRequest event, false if on jQuery event or normal ngModel workflow
-    isDefaultEvent: boolean;            //True if validation formatter is firing due to normal ngModel workflow (meaning, it was not triggered by the jqeuery or angular event handlers of this directive)
+    isDefaultEvent: boolean;            //True if validation is firing due to normal ngModel workflow (meaning, it was not triggered by the jqeuery or angular event handlers of this directive)
                                         //do note, this will be false for validation on angular validateRequest event that just includes the "default" event name among requested event names
     eventNames: string[];               //Names of the events that were requested in this validation
     requestGroupNames: string[];        //Names of the groups that were requested in this validation

@@ -1,3 +1,38 @@
 ﻿<div>
-
+    <p>
+        ValidateTogetherGroups are quite simple - validation of one input in the group causes 
+        all members to validate afterwards (the triggering input will validate again also).
+    </p>
+    <p>
+        Events validated are the same - so, if original input validates <code>default</code>, entire group
+        will validate it. If original inputs validates <code>blur</code> - entrie group will validate blur.
+        Same goes for any event or pseudo-event combination.
+    </p>
+    <p>
+        ValidateTogetherGroups has one unique behaviour - when validating as a result of a <code>default</code> event,
+        group valiation will happen async. This is done to make sure, that the model has been updated by the time
+        validation happens. It poses no problem with otherwise synchronous validation of this directive, because
+        such valiadtion can not be triggerred by VALIDATION_REQUEST angular event, and the one triggered by such event
+        can never change the viewValue and, as a result, the modelValue. 
+    </p>
+    <p>
+        When a VALIDATION_REQUEST is passing through the scopes of you form, it causes each input to validate and trigger
+        group validation (i.e. group validation will be triggered by every input in the group through whcih the request passes).
+        How they react to this can be fine tunned via <code>_validateTogetherGroupsBehaviour</code> property of the options object.
+        (That behavious applies to all group validations, not just from VALIDATION_REQUEST, but is most usefull with it).
+        <ul>
+            <li>
+                <code>"onlyTrigger"</code> - is for inputs that should trigger group validation, but don't participate (original
+                validation from VALIDATION_REQUEST will still occur).
+            </li>
+            <li>
+                <code>"afterFirst"</code> - the default value - input will validate once per VALIDATION_REQUEST.
+            </li>
+            <li>
+                <code>"afterEach"</code> - input will validate after each group memeber, through which the VALIDATION_REQUEST passes,
+                resulting in exponential growth of the amount of validations as the group grows.
+            </li>
+        </ul>
+        Seccond example of this section demonstrates this.
+    </p>
 </div>
