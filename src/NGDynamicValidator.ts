@@ -86,7 +86,7 @@ class NGDynamicValidatorCtrl {
     //Validation group with inputs(a, b, c) will trigger group (c,d,e), which will trigger (e,f,g))
     //Also, keeps track to precent endless loops from validation like (a,b,c) => (c,d,a) => (a,b,c)...
     private static triggerValidateTogetherGroup(groupName: string, originalTrigger: IValidationTrigger) {
-        console.log("Validation group trigger for " + groupName);
+        //console.log("Validation group trigger for " + groupName);
         if (_(NGDynamicValidatorCtrl.validateTogetherGroupsReigstry._groupsAlreadyValidatedDuringThisTrigger)
             .contains(groupName)) return;
 
@@ -186,7 +186,7 @@ class NGDynamicValidatorCtrl {
 
     private universalEventHandler(trigger: IValidationTrigger): void {
 
-		console.log("universal handler enter");
+		//console.log("universal handler enter");
 
 		//save previous state and switch it to requested events
 		this.options.currentValidationTrigger = trigger;
@@ -198,11 +198,11 @@ class NGDynamicValidatorCtrl {
 		_(this.options.validateTogetherGroups).each((groupName) => {
 			NGDynamicValidatorCtrl.triggerValidateTogetherGroup(groupName, trigger);
 		});
-		console.log("universal handler exit");
+		//console.log("universal handler exit");
 	}
 
 	private dynamicValidationFormatter(value) {
-		console.log(JSON.stringify(this.options.currentValidationTrigger));
+		//console.log(JSON.stringify(this.options.currentValidationTrigger));
 
 		var validatedValueBuffer = value;
 
@@ -512,7 +512,7 @@ class NGDynamicValidatorCtrl {
     constructor(private $scope: IDynamicValidatorScope, private $elem: ng.IAugmentedJQuery, $attr: ng.IAttributes,
         private $rootScope: ng.IRootScopeService, private $timeout:ng.ITimeoutService, private $parse: ng.IParseService, private validatorsSrv: IValidatorsService) {
 
-        console.log("Validator ctrl init");
+        //console.log("Validator ctrl init");
 
         this.options = angular.copy(NGDynamicValidatorCtrl.defaultOptions);
 
