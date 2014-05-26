@@ -20,8 +20,6 @@ demoApp.directive('ngBindCode', ['$parse','$http',($parse:ng.IParseService, $htt
             $http.get(url)
                 .success((content: string) => {
 
-                    console.log('loaded ' + url);
-
                     content.trim();
 
                     ////Strip out references

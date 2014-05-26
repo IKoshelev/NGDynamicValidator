@@ -14,8 +14,6 @@ demoApp.directive('ngBindCode', [
                 var isJs = url.slice(-2) == 'js';
 
                 $http.get(url).success(function (content) {
-                    console.log('loaded ' + url);
-
                     content.trim();
 
                     while (content.substr(0, 3) == "///") {

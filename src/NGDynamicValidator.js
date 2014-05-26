@@ -29,8 +29,7 @@ var NGDynamicValidatorCtrl = (function () {
                 _this.universalEventHandler(trigger);
             }
         };
-        console.log("Validator ctrl init");
-
+        //console.log("Validator ctrl init");
         this.options = angular.copy(NGDynamicValidatorCtrl.defaultOptions);
 
         var receivedOptionsString = $attr["ngDynamicValidator"];
@@ -73,7 +72,7 @@ var NGDynamicValidatorCtrl = (function () {
     //Validation group with inputs(a, b, c) will trigger group (c,d,e), which will trigger (e,f,g))
     //Also, keeps track to precent endless loops from validation like (a,b,c) => (c,d,a) => (a,b,c)...
     NGDynamicValidatorCtrl.triggerValidateTogetherGroup = function (groupName, originalTrigger) {
-        console.log("Validation group trigger for " + groupName);
+        //console.log("Validation group trigger for " + groupName);
         if (_(NGDynamicValidatorCtrl.validateTogetherGroupsReigstry._groupsAlreadyValidatedDuringThisTrigger).contains(groupName))
             return;
 
@@ -146,8 +145,7 @@ var NGDynamicValidatorCtrl = (function () {
     };
 
     NGDynamicValidatorCtrl.prototype.universalEventHandler = function (trigger) {
-        console.log("universal handler enter");
-
+        //console.log("universal handler enter");
         //save previous state and switch it to requested events
         this.options.currentValidationTrigger = trigger;
 
@@ -158,13 +156,12 @@ var NGDynamicValidatorCtrl = (function () {
         _(this.options.validateTogetherGroups).each(function (groupName) {
             NGDynamicValidatorCtrl.triggerValidateTogetherGroup(groupName, trigger);
         });
-        console.log("universal handler exit");
+        //console.log("universal handler exit");
     };
 
     NGDynamicValidatorCtrl.prototype.dynamicValidationFormatter = function (value) {
+        //console.log(JSON.stringify(this.options.currentValidationTrigger));
         var _this = this;
-        console.log(JSON.stringify(this.options.currentValidationTrigger));
-
         var validatedValueBuffer = value;
 
         //Each key / value of this object will be used to ngModelCtrl.$setValidity(key,value);
