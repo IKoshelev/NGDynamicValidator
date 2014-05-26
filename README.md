@@ -3,7 +3,7 @@ NGDynamicValidator
 
 An AngularJS directive for advanced forms validation scenarios. Targeted at enterprise level Angular applications.
 
-Demo site with instalation descriptions is available <a href="https://github.com/IKoshelev/NGDynamicValidator">here</a>
+Demo site with instalation descriptions is available at <a href="https://github.com/IKoshelev/NGDynamicValidator">github.io</a>
 
 Written in TypeScript. If you are new to TS, the thing you need to know is, it compiles to idiomatic human readable JS (in fact, it is very hard to notice a JS file that was compiled from TS) and those files are served to the browser / used with your JS code. Look inside src folder to see, what I mean. It is a superset of JS (any valid JS is valid TS) and if you know JS - you will have no trouble reading TS. If you want to know more about TS - http://www.typescriptlang.org/  
 
