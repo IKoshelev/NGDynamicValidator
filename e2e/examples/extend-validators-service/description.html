@@ -1,0 +1,22 @@
+<div>
+    <p>
+        In case you need to create a validator function and make it available,
+        to all your ng-dynamic-validator instances, you can do it via injecting
+        "validatorsProvider" into your module config and adding it to its <code>validators</code>
+        property.
+    </p>
+    <p>
+        That property is what actually gets injected when you request "validators", and
+        you can reuse your function in several controllers. 
+    </p>
+    <p>
+        Also, when you construct the options object as a sting of inline JSON within
+        ng-dynamic-validator attribute, that string will be $parsed against current scope
+        AND validators service, so the functions will be available there too.
+    </p>
+    <p>
+        Lastly, <code>validatorsProvider.getValueFromValueProvider(provider)</code> provides
+        the value getting behaviour from the previous example and you can use it for you functions
+        to make them more versatile, as this example demonstrates.
+    </p>
+</div>

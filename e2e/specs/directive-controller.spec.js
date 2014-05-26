@@ -152,4 +152,4 @@ describe('Directive controller', function () {
         expect(hasClass(input, "ng-valid")).toBe(true);
     });
 });
-//# sourceMappingURL=directive-conroller.spec.js.map
+//# sourceMappingURL=directive-controller.spec.js.map

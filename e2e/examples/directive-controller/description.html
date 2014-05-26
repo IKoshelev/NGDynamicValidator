@@ -1,3 +1,49 @@
 ﻿<div>
+    <p>
+        NGDynamicValidator directive provides your direcitves with a contoller that allows the dynamically change
+        most aspects of its behaviour.
+    </p>
+    <p>
+        You can request it in a standard Angular way in another directive
+        <pre>
+            <code>
+require: "ngDynamicValidator",
+            </code>
+        </pre> 
+        and it will be injected into your link function.
+    </p>
+    <p>
+        The controller exposes more members then described here, but the ones we don't
+        mention are the ones you shuld not use, or use at your own risk.
+    </p>
+    <ul>
+        <li>
+            <code>getOptionsProp(propName); <br/> setOptionsProp(propName, newValue);</code> - allows you to get or set a property. 
+            Inteded for use with "_excludedNonValids", "_validateTogetherGroupsBehaviour"
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <code>addToValidateTogetherGroup(groupName); <br /> removeFromValidateTogetherGroup(groupName);</code> - add or remove this
+            input to a validateTogetherGroup
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <code>addRequestGroup(groupName); <br /> removeRequestGroup(groupName);</code> - add or remove this input to a requestGroup
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <code>addValidator(eventName, validator); <br /> removeValidator(eventName, validatorFn); <br />removeValidatorByName(eventName, validatorFnName);</code> - 
+            add or remove a validator function to a particular event. Do note, that removeValidator matches functions as objects via ===, so you would have to keep
+            the reference to the original function object to use it. Instead - use removeValidatorByName, which checks and removes all validator functions with a matching
+            name. In case you will need a list of all events that this particular controller reacts to, you can get it via <code>options.validators</code> or via 
+            <code>getOptionsProp('validators')</code> - each key will be an event name with a value of validators array. But be careful with this object - as it 
+            is the one used for internal opertaion of NGDynamicValidator, don't modify it directly, just get the list of keys. Same goes for <code>options</code>
+            object.
+        </li>
+    </ul>
+
 
 </div>

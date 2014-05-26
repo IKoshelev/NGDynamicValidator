@@ -1,3 +1,25 @@
 ﻿<div>
-
+    <p>
+        Oftentimes you need to make a custom validator function and share it across you project.
+        <code>validators</code> service available through injection allow you to do that.
+        Actual extension of the service is demonstrated in the next example and this one concentrates
+        on its built-in functions and different ways you can pass parameters to them.
+    </p>
+    <p>
+        Built-in validator functions are <code>required</code>, <code>minLength</code>, <code>maxLength</code> and <code>pattern</code>.
+        They pretty much resemble their counterparts available with vanilla Angular, and will stop $veiwValue propagation towards model
+        if it is invalid, returning undefined.
+    </p>
+    <p>
+        All of them accept a parameter and return the actual validator function tied to that parameter. It can be:
+        <ul>
+            <li><code>minLength(3)</code> - inline value</li>
+            <li><code>minLength(value)</code> - inline value from $scope <code> $scope.value = 3;</code> Do note, chainging $scope.value afterwards does
+            not affect the already passed function in this case.</li>
+            <li><code>minLength(valueObj)</code> - an object on the $scope, whose <code>.value</code> property will
+            be eveluated every time that this validation function fires. <code>$scope.valueObj = { value: 3 };</code></li>
+            <li><code>minLength(valueProviderFn)</code> - a value provider function attached to the $scope, that will
+            be called for actual value during each validation. <code>$scope.valueProviderFn = function () { return $scope.valueObj.value;};</code></li>
+        </ul>
+    </p>
 </div>
