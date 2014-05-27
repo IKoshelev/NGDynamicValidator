@@ -61,7 +61,7 @@
                 </p>
 
                 <p>
-                    The VALIDATION_REQUEST angular event from this module allows you to trigger events for which you specified validators in any combinations from your JS
+                    The VALIDATE_REQUEST angular event from this module allows you to trigger events for which you specified validators in any combinations from your JS
                     code. Validation summary for forms and each ngModelCtrl is augmented with information on validator collections for which events resulted invalid,
                     much like the $error object of vanilla Angular.
                 </p>
@@ -127,17 +127,15 @@
                 <h1>Usage examples</h1>
 
                 <p>
-				A typical use case looks like this
-				<pre><code>
+                    A typical use case looks like this
+                    <pre><code>
 &lt;input type="text"
 	name="personalCode"
 	ng-model="personalCode"
-	ng-dynamic-validator="{ 
-				default: aValidator,										
-				blur: [minLength(3),maxLength(10)],
+	ng-dynamic-validator="{default: aValidator,										
+				blur: [minLength(3),maxLength(5)],
 				$beforeSend: required(true)}"
 				/&gt;
-
 				...
 				
 //Codes can't have more then 2 'a' letters
@@ -148,24 +146,37 @@ $scope.aValidator = max2AOccurence(value) {
 		}
 	return !value || matchesCount < 3;
 };		
-
 $scope.requestValidate = function () {
-    $rootScope.$broadcast(validatorEventNames.validateRequest, ["$beforeSend"]);
-};	
+    $rootScope.$broadcast('VALIDATE_REQUEST', ["$beforeSend"]);
+};
 				</pre></code>
-				
-				<ul>
-					<li>
-						<code>default: aValidator,</code> - will validate on every input
-					</li>
-					<li>
-						<code>blur: [minLength(3),maxLength(10)]</code> - will validate on blur
-					</li>
-					<li>
-						<code>$beforeSend: required(true)</code> - we will trigger this validation from js with requestValidate()
-					</li>
-				</ul>		
+
+                    <ul>
+                        <li>
+                            <code>default: aValidator,</code> - will validate on every keypress, invalid when letter 'a' occurs for a third time
+                        </li>
+                        <li>
+                            <code>blur: [minLength(3),maxLength(5)]</code> - will validate on blur
+                        </li>
+                        <li>
+                            <code>$beforeSend: required(true)</code> - we will trigger this validation with a button
+                        </li>
+                    </ul>
                 </p>
+                <div>
+                    Try it out : 
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <input type="text"
+                                   name="personalCode"
+                                   ng-model="personalCode"
+                                   ng-dynamic-validator="{default: aValidator,
+                                                        blur: [minLength(3),maxLength(5)],
+                                                        $beforeSend: required(true)}" />
+                        </div>
+                        <button type="button" class="btn btn-default" ng-click="requestValidate()">Submit</button>
+                    </form>
+                </div>
 
                 <h3>Validator functions</h3>
 
@@ -188,10 +199,10 @@ $scope.validator = function minLength(value, validationInfo){
                     <code>return</code> - can be either bool (true = valid) or an object specifiying validity and the modified value to be passed to the next
                     validator function or $parser (should be used mainly to return <code>undefined</code> when you don't want invalid value to be passed to the model,
                     as in vanilla angular directives behaviour).<br />
-                    <code>validationInfo</code> will be used very rarely, but just in case, here is it's 
+                    <code>validationInfo</code> will be used very rarely, but just in case, here is it's
                     <button ng-init="isCollapsed = true" class="btn btn-sm" ng-click="isCollapsed = !isCollapsed">description</button>
                     <div collapse="isCollapsed">
-                            <pre><code>
+                        <pre><code>
 interface IValidationInfo {
     trigger: IValidationTrigger;        //Info on the event, that triggered the validation. Will be a frozen object
     currentState: boolean;              //Current state of validity for this input with this validator
@@ -204,7 +215,6 @@ interface IValidationInfo {
                                         //P.S. If you are forced to use communicationBag - something should 
                                         //probably be changed about your architecture
 }
-
 //Information about the event that triggered validation. Object and its property objects will be frozen.
 interface IValidationTrigger {
     isJSEvent: boolean;                 //True if validating on jQuery event, 
@@ -260,7 +270,7 @@ interface IValidationTrigger {
                 </div>
 
             </div>
-        </div>
+            </div>
     </div>
 </body>
 </html>
