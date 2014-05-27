@@ -139,7 +139,7 @@
 				...
 				
 //Codes can't have more then 2 'a' letters
-$scope.aValidator = max2AOccurence(value) {
+$scope.aValidator = function max2AOccurence(value) {
 	if (value) {
 		var matches = value.match(/a/g);
 		var matchesCount = matches ? matches.length : 0;
