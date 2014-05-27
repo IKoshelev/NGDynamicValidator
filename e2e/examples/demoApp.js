@@ -42,7 +42,7 @@ demoApp.directive('ngBindCode', [
 demoApp.controller("ExamplesController", [
     "$scope", function ($scope) {
         //Codes can't have more then 2 'a' letters
-        $scope.aValidator = function max2AOccurence(value) {
+        $scope.aValidator = function max2AOccurrence(value) {
             if (value) {
                 var matches = value.match(/a/g);
                 var matchesCount = matches ? matches.length : 0;
