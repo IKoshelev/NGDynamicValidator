@@ -126,6 +126,47 @@
 
                 <h1>Usage examples</h1>
 
+                <p>
+				A typical use case looks like this
+				<pre><code>
+&lt;input type="text"
+	name="personalCode"
+	ng-model="personalCode"
+	ng-dynamic-validator="{ 
+				default: aValidator,										
+				blur: [minLength(3),maxLength(10)],
+				$beforeSend: required(true)}"
+				/&gt;
+
+				...
+				
+//Codes can't have more then 2 'a' letters
+$scope.aValidator = max2AOccurence(value) {
+	if (value) {
+		var matches = value.match(/a/g);
+		var matchesCount = matches ? matches.length : 0;
+		}
+	return !value || matchesCount < 3;
+};		
+
+$scope.requestValidate = function () {
+    $rootScope.$broadcast(validatorEventNames.validateRequest, ["$beforeSend"]);
+};	
+				</pre></code>
+				
+				<ul>
+					<li>
+						<code>default: aValidator,</code> - will validate on every input
+					</li>
+					<li>
+						<code>blur: [minLength(3),maxLength(10)]</code> - will validate on blur
+					</li>
+					<li>
+						<code>$beforeSend: required(true)</code> - we will trigger this validation from js with requestValidate()
+					</li>
+				</ul>		
+                </p>
+
                 <h3>Validator functions</h3>
 
                 <p>
