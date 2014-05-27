@@ -147,7 +147,7 @@ $scope.aValidator = function max2AOccurence(value) {
 	return !value || matchesCount < 3;
 };		
 $scope.requestValidate = function () {
-    $rootScope.$broadcast('VALIDATE_REQUEST', ["$beforeSend"]);
+    $scope.$broadcast('VALIDATE_REQUEST', ["$beforeSend"]);
 };
 				</pre></code>
 
