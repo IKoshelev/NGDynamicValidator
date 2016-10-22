@@ -1,9 +1,13 @@
+Warning!
+==================
+
+This project is not actively maintained and Angular has moved considerably ahead since it was introduced (around the time of Angular 1.2). 
+
 NGDynamicValidator
 ==================
 
 An AngularJS directive for advanced forms validation scenarios. Targeted at enterprise level Angular applications.
 
-Demo site with description, installation instructions and multiple examples is available at <a href="http://ikoshelev.github.io/">github.io</a>
 It also serves for E2E testing - the spec is ran against it, and is included in this repo. To access it offline run 
 <pre><code>npm start</code></pre>
 and navigate to http://localhost:8000/e2e/
